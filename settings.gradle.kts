@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Skyjo"
 include(":app")
+include(":engine")
