@@ -20,14 +20,6 @@ sealed interface GameState {
         sealed interface LiveGameState : GameState {
 
 
-            @Serializable
-            @SerialName("AwaitingInitialFlip")
-            class AwaitingInitialFlip(
-                //where you wait for everyone to flip over their initial two cards
-                //then whoever had the highest flip total would go first
-            )
-
-
         }
 
     }
