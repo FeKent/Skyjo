@@ -1,5 +1,6 @@
 package com.fekent.skyjo.engine
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 
