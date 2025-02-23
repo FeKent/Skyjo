@@ -50,13 +50,10 @@ sealed interface GameState {
 
             @Serializable
             @SerialName("AwaitingSkyjo")
-            class AwaitingSkyjoDecision(
+            class AwaitingSkyjo(
                 //if player's new card means that there is a column of REVEALED same numbers
                 //then that row will ALL be moved onto the pile, with the initial discarded card on the bottom
             )
-
-
         }
-
     }
 }

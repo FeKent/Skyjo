@@ -40,10 +40,8 @@ android {
 }
 
 dependencies {
-    /*FIXME: unsure how to add the engine in here without breaking the gradle */
-//    implementation(projects.engine)
 
-    implementation(project(":engine"))
+    implementation(projects.engine)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
