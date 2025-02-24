@@ -60,4 +60,14 @@ sealed interface GameAction {
         val previousRoundEnder: PlayerId,
     ) : GameAction
 
+    @Serializable
+    @SerialName("DrawCard")
+    data class DrawCard(
+        override val id: String,
+        override val timestamp: String,
+        override val playerId: PlayerId,
+        val discardPile: Boolean,
+        val drawPile: Boolean
+    ) : GameAction
+
 }
