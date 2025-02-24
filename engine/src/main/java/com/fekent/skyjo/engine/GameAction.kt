@@ -29,5 +29,14 @@ sealed interface GameAction {
         override val playerId: PlayerId,
     ) : GameAction
 
+    @Serializable
+    @SerialName("StartGame")
+    data class StartGame(
+        override val id: String,
+        override val timestamp: String,
+        override val playerId: PlayerId,
+        val players: List<PlayerId>,
+        val allDecks: Map<PlayerId, Deck>
+    ): GameAction
 
 }
