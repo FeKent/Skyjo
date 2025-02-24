@@ -109,4 +109,12 @@ sealed interface GameAction {
         override val playerId: PlayerId,
         val currentScores: Map<PlayerId, Int>
     ) : GameAction
+
+    @Serializable
+    @SerialName("ViewedResult")
+    data class ViewedResult(
+        override val id: String,
+        override val timestamp: String,
+        override val playerId: PlayerId,
+    ): GameAction
 }
