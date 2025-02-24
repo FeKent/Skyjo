@@ -100,4 +100,13 @@ sealed interface GameAction {
         val skyjo: Boolean,
         val discardedCards: List<Card>
     ) : GameAction
+
+    @Serializable
+    @SerialName("CheckScore")
+    data class CheckScore(
+        override val id: String,
+        override val timestamp: String,
+        override val playerId: PlayerId,
+        val currentScores: Map<PlayerId, Int>
+    ) : GameAction
 }
