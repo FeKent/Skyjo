@@ -3,6 +3,10 @@ package com.fekent.skyjo.engine
 import jdk.jfr.Timestamp
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
 
 
 @Serializable
@@ -117,4 +121,20 @@ sealed interface GameAction {
         override val timestamp: String,
         override val playerId: PlayerId,
     ): GameAction
+}
+
+object GameActionUtilities {
+    @Suppress("NewApi")
+    private val timestampFormatter : DateTimeFormatter =
+        DateTimeFormatter.ofPattern("yyyy-MM-d'T'HH:mm:ss'Z'")
+
+    @OptIn(ExperimentalUuidApi::class)
+    fun generateId(): String {
+        return Uuid.random().toHexString()
+    }
+
+    @Suppress("NewApi")
+    fun generateTimestamp(): String {
+        return timestampFormatter.format(LocalDateTime.now())
+    }
 }
