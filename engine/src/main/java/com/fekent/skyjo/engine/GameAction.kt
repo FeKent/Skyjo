@@ -47,9 +47,17 @@ sealed interface GameAction {
         override val playerId: PlayerId,
         val deck: Deck,
         val card: Card,
-        val initialScore: Int? //only used if it's at the start of the game to determine order of play
+        val initialScores: Map<PlayerId, Int>? //only used if it's at the start of the game to determine order of play
     ) : GameAction
 
-
+    @Serializable
+    @SerialName("StartRound")
+    data class StartRound(
+        override val id: String,
+        override val timestamp: String,
+        override val playerId: PlayerId,
+        val playOrder: Map<PlayerId, Int>,
+        val previousRoundEnder: PlayerId,
+    ) : GameAction
 
 }
