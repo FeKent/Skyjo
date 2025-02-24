@@ -91,4 +91,13 @@ sealed interface GameAction {
         val pendingDeck: List<Card>
     ) : GameAction
 
+    @Serializable
+    @SerialName("DiscardSkyjo")
+    data class DiscardSkyjo(
+        override val id: String,
+        override val timestamp: String,
+        override val playerId: PlayerId,
+        val skyjo: Boolean,
+        val discardedCards: List<Card>
+    ) : GameAction
 }
