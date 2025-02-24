@@ -81,4 +81,14 @@ sealed interface GameAction {
         val discardedCards: List<Card> //unsure about this one
     ) : GameAction
 
+    @Serializable
+    @SerialName("KeepCard")
+    data class KeepCard(
+        override val id: String,
+        override val timestamp: String,
+        override val playerId: PlayerId,
+        val currentCard: Card,
+        val pendingDeck: List<Card>
+    ) : GameAction
+
 }
