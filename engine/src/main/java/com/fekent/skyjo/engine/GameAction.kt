@@ -67,7 +67,18 @@ sealed interface GameAction {
         override val timestamp: String,
         override val playerId: PlayerId,
         val discardPile: Boolean,
-        val drawPile: Boolean
+        val drawPile: Boolean,
+        val drawnCard: Card
+    ) : GameAction
+
+    @Serializable
+    @SerialName("DiscardCard")
+    data class DiscardCard(
+        override val id: String,
+        override val timestamp: String,
+        override val playerId: PlayerId,
+        val currentCard: Card,
+        val discardedCards: List<Card> //unsure about this one
     ) : GameAction
 
 }
