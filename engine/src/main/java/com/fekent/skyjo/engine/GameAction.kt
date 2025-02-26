@@ -44,6 +44,17 @@ sealed interface GameAction {
     ): GameAction
 
     @Serializable
+    @SerialName("InitialFlipCard")
+    data class InitialFlipCard(
+        override val id: String,
+        override val timestamp: String,
+        override val playerId: PlayerId,
+        val deck: Deck,
+        val card: Card,
+        val initialScores: Map<PlayerId, Int>
+    ) : GameAction
+
+    @Serializable
     @SerialName("FlipCard")
     data class FlipCard(
         override val id: String,
@@ -51,7 +62,6 @@ sealed interface GameAction {
         override val playerId: PlayerId,
         val deck: Deck,
         val card: Card,
-        val initialScores: Map<PlayerId, Int>? //only used if it's at the start of the game to determine order of play
     ) : GameAction
 
     @Serializable
