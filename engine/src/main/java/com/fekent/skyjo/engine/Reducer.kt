@@ -36,11 +36,21 @@ private fun NotStarted.reduce(action: GameAction): GameState{
 
         }
 
+        else -> return this
+    }
+    return TODO("ask stu why i need this, despite the else -> return this line")
+}
+
+private fun AwaitingRoundStart.reduce(action: GameAction): GameState{
+    when (action){
+        is InitialFlipCard -> {
+
+        }
         is StartRound -> {
 
         }
-
         else -> return this
     }
-    return TODO("Provide the return value")
+    return TODO("ask stu why i need this, despite the else -> return this line")
+
 }
