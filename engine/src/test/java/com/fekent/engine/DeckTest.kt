@@ -1,12 +1,8 @@
 package com.fekent.engine
 
-import com.fekent.skyjo.engine.Card
-import com.fekent.skyjo.engine.Deck
-import com.fekent.skyjo.engine.Rules
 import com.fekent.skyjo.engine.Rules.fullDeck
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
-import kotlin.random.Random
 
 class DeckTest {
 
