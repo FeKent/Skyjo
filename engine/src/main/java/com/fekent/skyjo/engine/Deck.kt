@@ -5,3 +5,4 @@ import kotlinx.serialization.Serializable
 @JvmInline
 @Serializable
 value class Deck(val cards: List<Card>)
+
