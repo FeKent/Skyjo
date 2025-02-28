@@ -18,4 +18,6 @@ object Rules {
                     .forEach { _ -> repeat(10) { add(Card(it)) } }
             }
         )
+
+    const val initialBoardSize: Int = 12
 }
