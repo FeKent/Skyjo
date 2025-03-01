@@ -6,3 +6,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 value class Deck(val cards: List<Card>)
 
+operator fun Deck.minus(cards: List<Card>): Deck {
+    return Deck(this.cards - cards.toSet())
+}
