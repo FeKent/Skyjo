@@ -21,6 +21,10 @@ sealed interface GameState {
         return allPlayers.find { it.id == playerId }
     }
 
+    fun playerName(playerId: PlayerId): String? {
+        return allPlayers.find { it.id == playerId }?.name
+    }
+
     @Serializable
     @SerialName("NotStarted")
     class NotStarted(override val allPlayers: List<Player>) : GameState {
