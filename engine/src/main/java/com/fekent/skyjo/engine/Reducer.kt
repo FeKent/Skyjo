@@ -1,16 +1,10 @@
 package com.fekent.skyjo.engine
 
-import com.fekent.skyjo.engine.GameAction.InitialFlipCard
-import com.fekent.skyjo.engine.GameAction.JoinedLobby
-import com.fekent.skyjo.engine.GameAction.LeftLobby
-import com.fekent.skyjo.engine.GameAction.StartGame
-import com.fekent.skyjo.engine.GameAction.StartRound
-import com.fekent.skyjo.engine.GameState.NotStarted
+import com.fekent.skyjo.engine.GameState.*
+import com.fekent.skyjo.engine.GameAction.*
 import com.fekent.skyjo.engine.GameState.StartedGameState.LiveGameState.AwaitingRoundStart
-import com.fekent.skyjo.engine.GameState.StartedGameState.LiveGameState.RoundGameState.AwaitingDrawDecision
-import com.fekent.skyjo.engine.GameState.StartedGameState.LiveGameState.RoundGameState.AwaitingFlipDecision
-import com.fekent.skyjo.engine.GameState.StartedGameState.LiveGameState.RoundGameState.AwaitingPlayDecision
-import com.fekent.skyjo.engine.GameState.StartedGameState.LiveGameState.RoundGameState.AwaitingSkyjo
+import com.fekent.skyjo.engine.GameState.StartedGameState.LiveGameState.RoundGameState.*
+import kotlin.math.round
 
 fun GameState.reduce(action: GameAction): GameState {
     return when (this) {
@@ -40,18 +34,23 @@ private fun NotStarted.reduce(action: GameAction): GameState {
         }
 
         is StartGame -> {
-            val deck = action
-                .allBoards
-                .entries
-                .fold(Rules.fullDeck) { currentDeck, (_, board) ->
-                    currentDeck - board.cards
-                }
+
+            var deck = Rules.fullDeck
+            val boards = mutableMapOf<PlayerId, Board>()
+
+            action.allBoards.entries.forEach { (playerId, _) ->
+                val (board, newDeck) = Rules.takeBoardFromDeck(deck)
+                deck = newDeck
+                boards[playerId] = board
+            }
 
             return AwaitingRoundStart(
                 allPlayers = allPlayers.sortedBy { player -> action.players.indexOf(player.id) },
                 allBoards = action.allBoards,
                 deck = deck,
                 round = 1
+
+                //this does NOT deal the cards
             )
         }
 
