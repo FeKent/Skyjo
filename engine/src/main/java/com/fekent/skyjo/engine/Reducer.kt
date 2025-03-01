@@ -5,8 +5,8 @@ import com.fekent.skyjo.engine.GameAction.*
 import com.fekent.skyjo.engine.GameState.StartedGameState.LiveGameState.AwaitingRoundStart
 import com.fekent.skyjo.engine.GameState.StartedGameState.LiveGameState.RoundGameState.*
 
-fun GameState.reduce(action: GameAction): GameState{
-    return when (this){
+fun GameState.reduce(action: GameAction): GameState {
+    return when (this) {
         is NotStarted -> reduce(action)
         is AwaitingRoundStart -> reduce(action)
         is AwaitingDrawDecision -> reduce(action)
@@ -16,11 +16,11 @@ fun GameState.reduce(action: GameAction): GameState{
     }
 }
 
-fun List<GameAction>.reduce(): GameState{
-    return fold(GameState.initialGameState) {acc, action -> acc.reduce(action)}
+fun List<GameAction>.reduce(): GameState {
+    return fold(GameState.initialGameState) { acc, action -> acc.reduce(action) }
 }
 
-private fun NotStarted.reduce(action: GameAction): GameState{
+private fun NotStarted.reduce(action: GameAction): GameState {
     when (action) {
         is JoinedLobby -> {
             val newAllPlayers = allPlayers + Player(id = action.playerId, name = action.playerName)
@@ -33,22 +33,35 @@ private fun NotStarted.reduce(action: GameAction): GameState{
         }
 
         is StartGame -> {
-            return this
+            val deck =
+                action
+                    .allBoards
+                    .entries
+                    .fold(Rules.fullDeck.cards.shuffled()) { deck, (_, board) ->
+                    deck - board.cards.toSet()
+                    }
 
+            return AwaitingRoundStart(
+                allPlayers = allPlayers.sortedBy { player -> action.players.indexOf(player.id) },
+
+
+            )
         }
 
         else -> return this
     }
 }
 
-private fun AwaitingRoundStart.reduce(action: GameAction): GameState{
-    when (action){
+private fun AwaitingRoundStart.reduce(action: GameAction): GameState {
+    when (action) {
         is InitialFlipCard -> {
             return this
         }
+
         is StartRound -> {
             return this
         }
+
         else -> return this
     }
 }
