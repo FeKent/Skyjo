@@ -40,7 +40,7 @@ sealed interface GameAction {
         override val timestamp: String,
         override val playerId: PlayerId,
         val players: List<PlayerId>,
-        val allDecks: Map<PlayerId, Deck>
+        val allBoards: Map<PlayerId, Board>
     ): GameAction
 
     @Serializable
