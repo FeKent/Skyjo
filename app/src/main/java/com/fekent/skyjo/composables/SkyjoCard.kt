@@ -83,7 +83,6 @@ fun RevealedCard(card: Card) {
                 Text(
                     card.value.toString(),
                     modifier = Modifier.graphicsLayer(rotationZ = 180f),
-
                     )
             }
         }
@@ -93,7 +92,7 @@ fun RevealedCard(card: Card) {
 @Composable
 fun CardWithLabel(index: Int, card: Card) {
     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(4.dp)) {
-        Text("Card ${index + 1}", fontSize = 16.sp, fontWeight = FontWeight.Bold) // Label the card
+        Text("Card ${index + 1}", fontSize = 16.sp, fontWeight = FontWeight.SemiBold) // Label the card
         RevealedCard(card) // Display the actual card
     }
 }
@@ -117,9 +116,12 @@ private fun RevealedBoardPreview() {
 
     val playerIds = players.map { it.id }
     val initialBoards = Rules.deal(playerIds)
-    val selectedPlayerId = PlayerId("3") // Change this to preview a different player's board
+
+    val selectedPlayerId = PlayerId("2") // Change this to preview a different player's board
+
     val selectedPlayer = players.find { it.id == selectedPlayerId }
     val board = initialBoards[selectedPlayerId]
+
 
     Column(modifier = Modifier.padding(16.dp)) {
         Text("${selectedPlayer?.name}'s Board", fontSize = 24.sp, fontWeight = FontWeight.Bold)
