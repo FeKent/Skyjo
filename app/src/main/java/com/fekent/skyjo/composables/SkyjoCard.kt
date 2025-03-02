@@ -19,14 +19,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.fekent.skyjo.engine.Card
+import com.fekent.skyjo.engine.Player
+import com.fekent.skyjo.engine.PlayerId
+import com.fekent.skyjo.engine.Rules
 
 @Composable
 fun RevealedCard(card: Card) {
-
     Column(
         modifier = Modifier
             .width(60.dp)
@@ -87,8 +90,79 @@ fun RevealedCard(card: Card) {
     }
 }
 
-@Preview
 @Composable
-private fun CardPreview() {
-    RevealedCard(Card(12))
+fun CardWithLabel(index: Int, card: Card) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(4.dp)) {
+        Text("Card ${index + 1}", fontSize = 16.sp, fontWeight = FontWeight.Bold) // Label the card
+        RevealedCard(card) // Display the actual card
+    }
 }
+
+//@Preview
+//@Composable
+//private fun CardPreview() {
+//    RevealedCard(Card(12))
+//}
+
+
+@Preview(showBackground = true)
+@Composable
+private fun RevealedBoardPreview() {
+    val players = listOf(
+        Player(PlayerId("1"), "August"),
+        Player(PlayerId("2"), "Gabi"),
+        Player(PlayerId("3"), "Charlie"),
+        Player(PlayerId("4"), "Snippy")
+    )
+
+    val playerIds = players.map { it.id }
+    val initialBoards = Rules.deal(playerIds)
+    val selectedPlayerId = PlayerId("3") // Change this to preview a different player's board
+    val selectedPlayer = players.find { it.id == selectedPlayerId }
+    val board = initialBoards[selectedPlayerId]
+
+    Column(modifier = Modifier.padding(16.dp)) {
+        Text("${selectedPlayer?.name}'s Board", fontSize = 24.sp, fontWeight = FontWeight.Bold)
+
+        board?.cards?.chunked(board.cards.size / 4)
+            ?.let { (firstColumn, secondColumn, thirdColum, fourthColumn) ->
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+
+                    Column {
+                        firstColumn.forEachIndexed { index, card ->
+                            CardWithLabel(index, card)
+                        }
+                    }
+
+                    Column {
+                        secondColumn.forEachIndexed { index, card ->
+                            CardWithLabel(
+                                index + firstColumn.size,
+                                card
+                            )
+                        }
+                    }
+                    Column {
+                        thirdColum.forEachIndexed { index, card ->
+                            CardWithLabel(
+                                index + firstColumn.size + secondColumn.size,
+                                card
+                            )
+                        }
+                    }
+                    Column {
+                        fourthColumn.forEachIndexed { index, card ->
+                            CardWithLabel(
+                                index + thirdColum.size + firstColumn.size + secondColumn.size,
+                                card
+                            )
+                        }
+                    }
+                }
+            }
+    }
+}
+
