@@ -1,6 +1,5 @@
 package com.fekent.engine
 
-import com.fekent.skyjo.engine.Board
 import com.fekent.skyjo.engine.GameAction
 import com.fekent.skyjo.engine.GameState
 import com.fekent.skyjo.engine.Player
@@ -8,6 +7,7 @@ import com.fekent.skyjo.engine.PlayerId
 import com.fekent.skyjo.engine.Rules
 import com.fekent.skyjo.engine.reduce
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class GameStateAndActionTest {
@@ -44,14 +44,14 @@ class GameStateAndActionTest {
         val newState = initialState.reduce(startGameAction)
 
         // Ensure state transitioned to AwaitingRoundStart
-        assert(newState is GameState.StartedGameState.LiveGameState.AwaitingRoundStart)
+        assertTrue(newState is GameState.StartedGameState.LiveGameState.AwaitingRoundStart)
 
         val awaitingRoundStart = newState as GameState.StartedGameState.LiveGameState.AwaitingRoundStart
 
         // Ensure all players have a board with cards
         assertEquals(players.size, awaitingRoundStart.allBoards.size)
         awaitingRoundStart.allBoards.forEach { (playerId, board) ->
-            assert(board.cards.isNotEmpty()) // Ensure each board has cards
+            assertTrue(board.cards.isNotEmpty()) // Ensure each board has cards
             println("${players.find { it.id == playerId }?.name}'s board: ${board.cards.joinToString { it.value.toString() }}")
         }
 
