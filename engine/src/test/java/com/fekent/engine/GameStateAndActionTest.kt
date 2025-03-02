@@ -68,5 +68,6 @@ class GameStateAndActionTest {
 
         // Print the remaining deck size for debugging
         println("Remaining deck size: $remainingDeckSize")
+        println("Deck Check: ${initialDeck.cards.joinToString { it.value.toString() }}")
     }
 }
