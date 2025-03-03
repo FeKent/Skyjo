@@ -77,8 +77,7 @@ fun HiddenCard() {
         modifier = Modifier
             .width(60.dp)
             .height(100.dp)
-            .fillMaxSize()
-            .padding(1.dp),
+            .fillMaxSize(),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Box(
