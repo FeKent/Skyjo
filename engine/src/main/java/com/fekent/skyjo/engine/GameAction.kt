@@ -39,7 +39,7 @@ sealed interface GameAction {
         override val id: String,
         override val timestamp: String,
         override val playerId: PlayerId,
-        val players: List<PlayerId>,
+        val playerOrder: List<PlayerId>,
         val allBoards: Map<PlayerId, Board>
     ): GameAction
 

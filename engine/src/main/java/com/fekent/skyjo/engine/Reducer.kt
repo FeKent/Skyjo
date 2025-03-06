@@ -45,10 +45,11 @@ private fun NotStarted.reduce(action: GameAction): GameState {
             }
 
             return AwaitingRoundStart(
-                allPlayers = allPlayers.sortedBy { player -> action.players.indexOf(player.id) },
+                allPlayers = allPlayers.sortedBy { player -> action.playerOrder.indexOf(player.id) },
                 allBoards = action.allBoards,
                 deck = deck,
-                round = 1
+                round = 1,
+                initialTurn = 1
 
                 //this does NOT deal the cards
             )
@@ -59,12 +60,24 @@ private fun NotStarted.reduce(action: GameAction): GameState {
 }
 
 private fun AwaitingRoundStart.reduce(action: GameAction): GameState {
+    if (action.playerId != turnPlayer.id) return this
+    //basically if it's not your turn, wait
+
     when (action) {
         is InitialFlipCard -> {
+            //use allplayers to determine who goes first
+            //each player flips over two cards - value of these cards is added up
+
+
+
             return this
         }
 
         is StartRound -> {
+            //if it's the first round, the player with the highest value goes first
+            //if it's any other round number, the player who flipped their last card over first
+            // starts the round regardless of the scores of the initial flip
+
             return this
         }
 

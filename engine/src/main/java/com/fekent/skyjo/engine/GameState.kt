@@ -43,6 +43,9 @@ sealed interface GameState {
 
 
             val round: Int
+            val initialTurn: Int
+
+            val turnPlayer: Player get() = allPlayers[(initialTurn - 1) % allPlayers.size]
 
             @Serializable
             @SerialName("AwaitingRoundStart")
@@ -51,6 +54,7 @@ sealed interface GameState {
                 override val allBoards: Map<PlayerId, Board>,
                 override val deck: Deck,
                 override val round: Int,
+                override val initialTurn: Int,
                 //wait for everyone to flip over their initial two cards
                 //then whoever had the highest flip total would go first OR who finished previous round
                 //this starts the round!
