@@ -1,3 +1,4 @@
+import java.io.FileInputStream
 import java.util.Properties
 
 plugins {
@@ -23,6 +24,17 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
+        val localProperties = Properties().apply {
+            val localFile = File(rootProject.projectDir, "local.properties")
+            if (localFile.exists()) {
+                load(FileInputStream(localFile))
+            }
+        }
+
+// Retrieve FIREBASE_URL from local.properties
+        val firebaseUrl = localProperties.getProperty("FIREBASE_URL", "")
+        buildConfigField("String", "FIREBASE_URL", "\"$firebaseUrl\"")
+
     }
 
     buildTypes {
@@ -42,6 +54,7 @@ android {
         jvmTarget = "11"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
 }

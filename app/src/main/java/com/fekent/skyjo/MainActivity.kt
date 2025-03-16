@@ -11,7 +11,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.fekent.skyjo.persistence.SendMessage
+import com.fekent.skyjo.persistence.sendMessage
 import com.fekent.skyjo.ui.theme.SkyjoTheme
 import com.google.firebase.FirebaseApp
 
@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             SkyjoTheme {
                 Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-                    Button(onClick = {SendMessage()}) { Text("Click Me") }
+                    Button(onClick = {sendMessage()}) { Text("Click Me") }
                 }
 
             }
