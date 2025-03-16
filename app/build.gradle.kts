@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -7,10 +9,12 @@ plugins {
 }
 
 android {
+
     namespace = "com.fekent.skyjo"
     compileSdk = 35
 
     defaultConfig {
+
         applicationId = "com.fekent.skyjo"
         minSdk = 24
         targetSdk = 35
@@ -18,6 +22,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
