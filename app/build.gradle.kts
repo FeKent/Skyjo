@@ -31,7 +31,6 @@ android {
             }
         }
 
-// Retrieve FIREBASE_URL from local.properties
         val firebaseUrl = localProperties.getProperty("FIREBASE_URL", "")
         buildConfigField("String", "FIREBASE_URL", "\"$firebaseUrl\"")
 
